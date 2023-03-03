@@ -5,34 +5,81 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+  const params = new URLSearchParams(search);
+  const city = params.get('city');
+  return city
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-
+  try{
+    const response = await fetch(
+      config.backendEndpoint + `/adventures?city=${city}`
+    );
+    const json = await response.json();
+    return json;
+  } catch(err){
+    return null;
+  }
 }
 
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  adventures.forEach((adv) => {
+    let divColEle  = document.createElement('div');
+    divColEle.className = 'col-6 col-lg-3 mb-3';
+    divColEle.innerHTML = `
+      <a href="detail/?adventure=${adv.id}" id="${adv.id}">
+        <div class="card">
+          <img src="${adv.image}" class="activity-card img"/>
+          <div class="category-banner">${adv.category}</div>
+          <div class="card-body d-md-flex justify-content-between">
+            <h5>${adv.name}</h5>
+            <p>₹${adv.costPerHead}</p>
+          </div>
+          <div class="card-body d-md-flex justify-content-between">
+            <h5>Duration</h5>
+            <p>${adv.duration} Hours</p>
+          </div>
+        </div>
+      </a>
+    `;
 
+    let divRowEle = document.getElementById('data');
+    divRowEle.append(divColEle);
+  });
 }
 
 //Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-
+  // let bigCities = [];
+  // for(let i = 0; i < list.length; i++){
+  //   if(list[i].duration >= low && list[i].duration <= high){
+  //     bigCities.push(list[i]);
+  //   }
+  // }
+  // return bigCities;
 }
 
 //Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
+  // let bigCities = [];
+  // for(let i = 0; i < list.length; i++){
+  //   for(let j = 0; j < categoryList.length; j++){
+  //     if(list[i].category == categoryList[j]){
+  //       bigCities.push(list[i]);
+  //     }
+  //   }
+  //   return bigCities;
+  // }
 
 }
 
@@ -91,3 +138,4 @@ export {
   getFiltersFromLocalStorage,
   generateFilterPillsAndUpdateDOM,
 };
+ 

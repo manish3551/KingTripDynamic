@@ -1,6 +1,7 @@
 import config from "../conf/index.js";
 
 async function init() {
+  debugger;
   //Fetches list of all cities along with their images and description
   let cities = await fetchCities();
 
@@ -31,12 +32,12 @@ function addCityToDOM(id, city, description, image) {
   element.className = "col-6 col-lg-3 mb-4";
   element.innerHTML = `
     <a href="pages/adventures/?city=${id}" id="${id}">
-      <div class="title">
+      <div class="tile">
         <div class="tile-text text-center">
           <h5>${city}</h5>
           <p>${description}</p>          
         </div>
-        <img class="activity-card" src="${image}"/>
+        <img class="img-response" src="${image}" />
       </div>
     </a>
   `;
