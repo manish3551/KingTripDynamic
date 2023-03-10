@@ -11,7 +11,7 @@ function getCityFromURL(search) {
 }
 
 //Implementation of fetch call with a paramterized input based on city
-async function fetchAdventures(city) {
+async function fetchAdventures(city) { 
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
   try{
